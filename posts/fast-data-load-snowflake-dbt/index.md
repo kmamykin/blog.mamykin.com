@@ -1,4 +1,5 @@
 ---
+
 permalink: /posts/fast-data-load-snowflake-dbt/
 title: "Fast Inncremental Data Load into Snowflake with DBT"
 author: "Kliment Mamykin"
