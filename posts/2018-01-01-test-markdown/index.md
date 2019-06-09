@@ -41,6 +41,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 2. Two 
 3. Three
 
+## Citations and references test
+
+In this article [#sinha_fast_2018] present a fast algorythm to aggregate multiple crowdsources votes for each datapoint.
+
+In this article [#bach_learning_2017] talks of that fact that curating labeled training data has become the primary bottleneck in machine learning.
+
+
 ## Math test
 
 Some formula inline $E(a*X + b) = a*E(X) + b$
