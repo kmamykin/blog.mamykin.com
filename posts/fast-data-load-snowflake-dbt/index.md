@@ -10,7 +10,6 @@ tags:
   - data engineering
   - snowflake
   - dbt
-draft: true
 ---
 
 ## TLDR
