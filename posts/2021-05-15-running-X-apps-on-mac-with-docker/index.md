@@ -21,18 +21,10 @@ tags:
 
 ## Motivation
 
-The other day I was looking through the installation of [ROS2 (Robot Operating System)](https://docs.ros.org/en/foxy/index.html) on Mac (Big Sur, M1 CPU).  
-Compiling ROS from source on Mac is a bit of a [chore](https://docs.ros.org/en/foxy/Installation/macOS-Development-Setup.html), 
-and requires global changes to the local machine (such as disabling System Integrity Protection).
-Running ROS processes as containers in Docker presents a nice (minimal footprint on the host machine) alternative 
-to compiling and installing ROS locally. 
-However, several essential tools in ROS are GUI applications compiled using Qt framework, 
-and need additional steps to display their windows on the docker host machine. 
-There are several articles on the web describing how that can be done but few specifically address how to do that on a Mac with XQuartz and Docker for Mac.
-
-See also:
-* [http://wiki.ros.org/docker/Tutorials/GUI](http://wiki.ros.org/docker/Tutorials/GUI) - Linux centric, does not work on Mac
-* https://github.com/mviereck/x11docker - only supports Linux and Windows hosts, not Macs
+There are numerous examples how to run [X-Window](https://en.wikipedia.org/wiki/X_Window_System) applications in a docker container, but very few of the examples work on macOS using "Docker for Mac" product.
+I discovered that trying to work through the tutorials of [ROS2 (Robot Operating System)](https://docs.ros.org/en/foxy/index.html) on my Mac (Big Sur, M1 CPU).
+While most of ROS processes work perfectly well in docker, some essential GUI applications such as rqt and rviz need to connect to XServer process running on the host machine.
+What follows is a list of steps to make this setup work using "Docker for Mac" and XQuartz.
 
 ## Install XQuartz
 
@@ -50,17 +42,17 @@ After the installation completes, start XQuartz application, select Preferences 
 
 ![XQuartz Preferences](img/XQuartz_Preferences.png)
 
-After that quit and restart XQuartz application. 
+After that **quit and restart XQuartz application**. 
 In fact, I had to restart my machine after which things started magically working, so it may or may not be a factor. 
 A quick test of XQuartz is to run `xeyes` from the command line, and you should see a pair of googly eyes watching the position of the mouse.
 
 ### Permissions control with xhost command
 
 There are several mechanisms to manage access control of an X server - [xhost and xauth](https://tldp.org/HOWTO/Remote-X-Apps-6.html).
-`xhost` is a simple mechanism to have IP based access control, that's good enough for a non-production use. 
+`xhost` is a simple mechanism to have an IP based access control, and it's good enough for non-production use. 
 Note that the access control settings set by `xhost` will only persist while XQuartz application is running.
-Restarting XQuartz resets the access control to the most restrictive mode (equivalent to `xhost -` with no authorized clients), 
-and it's a good thing to do after you are done.
+Restarting XQuartz application resets the access control to the most restrictive mode (equivalent to `xhost -` with no authorized clients), 
+and it's a good idea to quit XQuartz in the end.
 
 Quick reference for working with [xhost](https://linux.die.net/man/1/xhost):
 
@@ -69,21 +61,21 @@ Quick reference for working with [xhost](https://linux.die.net/man/1/xhost):
 - `xhost -` enables access control and allows only authorized clients to connect
 - `xhost +localhost` adds localhost to the list of authorized clients, allowing only local processes to connect
 
-Run `xhost +localhost` to allow docker process to connect to XQuartz XServer.
+For our purpose it sufficient to run `xhost +localhost` to allow docker process to connect to XQuartz XServer.
 
 ## Run Docker
 
 Theoretically, all we need to do is to share `/tmp/.X11-unix` directory to allow X11 apps inside a container to communicate with the XServer on the host using Unix Domain Sockets (UDS). 
 This approach is described in multiple articles available on this topic, just search for "how to run GUI/X11 apps in docker". 
-Unfortunately this approach will not work when using "Docker for Mac".
 
+Unfortunately this approach will not work when using "Docker for Mac". 
 There is a [long-standing issue](https://github.com/docker/for-mac/issues/483) for [Docker for Mac](https://docs.docker.com/docker-for-mac/install/) 
 that makes Unix style sockets non-functional between the host and a container. 
 That issue is related to docker's `osxfs` filesystem driver implementation, and was closed with 'will not fix' resolution.
 The Docker Desktop 2.4.0.0 release [switched from `osxfs` to gRPC-FUSE](https://docs.docker.com/docker-for-mac/release-notes/#docker-desktop-community-2400) file sharing driver.
 However, after a quick test, I confirmed the issue has not been fixed in the gRPC-FUSE implementation either. 
 
-One workaround for this issue is to use TCP sockets for the XSystem communication instead of Unix Domain Sockets. 
+The workaround for this issue is to use TCP sockets for the XSystem communication instead of Unix Domain Sockets. 
 It is [not as](ttps://blog.myhro.info/2017/01/benchmarking-ip-and-unix-domain-sockets-for-real) [performant](https://blog.myhro.info/2017/01/benchmarking-ip-and-unix-domain-sockets-for-real) 
 as connecting over UDS, but XSystem was designed to work over the network.
 The only trick to make this work is to set `DISPLAY` environment variable inside the container to point at the host display, 
@@ -116,3 +108,7 @@ Right now this Dockerfile installs only x11-apps, but you would need to install 
 
 One outstanding issue here is GPU support: for the apps requesting GPU context (e.g. rviz for ROS) I have not gotten this to work. 
 If you have an idea how to approach that, let me know in the comments.
+
+### See also
+* [http://wiki.ros.org/docker/Tutorials/GUI](http://wiki.ros.org/docker/Tutorials/GUI) - Linux centric, does not work on Mac
+* https://github.com/mviereck/x11docker - only supports Linux and Windows hosts, not Macs
