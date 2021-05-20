@@ -1,13 +1,22 @@
 ---
-draft: true
+permalink: /posts/awesome-robotics/
+title: "Awesome robotics"
+author: "Kliment Mamykin"
+date: "2021-05-20"
+image: ''
+tags:
+- ROS
+- ROS2
 ---
 
-# Robotics links
+This is a bi-product of my deep dive to understand the current state of affairs in robotics.
+It's not an exhaustive list of all subject areas but rather a list of starting points I found useful to explore further. 
+Hopefully this will be helpful to somebody who is diving into robotics for the first time.
 
-# Runtime/Frameworks
+## Runtime/Frameworks
 
 * https://www.ros.org/
-    * Docs: http://docs.ros.org/en/rolling/index.html#
+    * Docs: http://docs.ros.org/
 * https://google-cartographer-ros.readthedocs.io/en/latest/index.html# SLAM, Navigation
 * https://moveit.ros.org/ motion planning, manipulation, 3D perception, kinematics, control and navigation
 * https://navigation.ros.org/
@@ -17,9 +26,9 @@ draft: true
 * https://web.casadi.org/ nonlinear optimization and algorithmic differentiation for numerical optimal control
 
 ## Simulation & Visualization
-* https://ignitionrobotics.org/home
 * http://gazebosim.org/
   * https://hub.docker.com/_/gazebo/ Nice description how to use gazebo
+* https://ignitionrobotics.org/home
 * https://allisonthackston.com/articles/ignition-vs-gazebo.html
 * https://cyberbotics.com/ 
 * https://plotjuggler.io/ Visualization tool of rosbags and topics streams
@@ -48,12 +57,12 @@ draft: true
 ## Drones
 * https://px4.io/ - Open Source Autopilot Designed For Scale
 
-## People/Blogs
-* https://allisonthackston.com/articles/
+## Embedded 
+* https://buildroot.org/ - Linux based
+* https://www.yoctoproject.org/ - Linux based
+* https://www.freertos.org/ - for super tiny controllers
+  * https://github.com/hashmismatch/freertos.rs FreeRTOS in Rust
 
-## Embedded Linux
-* https://buildroot.org/
-* https://www.yoctoproject.org/
 
 ## Courses
 * https://www.autoware.org/awf-course - Self-Driving Cars with ROS and Autoware
@@ -63,14 +72,13 @@ draft: true
 * https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/
 * http://www.clearpathrobotics.com/assets/guides/melodic/ros/
 
-
 ## Events/Videos
 * https://discourse.ros.org/t/ros-world-talks-are-posted/17436
 * https://www.redhat.com/en/open-source-stories/robots/breaking-the-wheel 
 
 ## Rust and Robots
-* https://github.com/twistedfall/opencv-rust
 * https://robotics.rs/
+* https://github.com/twistedfall/opencv-rust
 
 ## Data
 * https://github.com/6RiverSystems/rosbag2bigquery
