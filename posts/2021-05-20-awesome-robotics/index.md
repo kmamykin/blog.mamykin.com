@@ -62,7 +62,7 @@ Hopefully this will be helpful to somebody who is diving into robotics for the f
 * https://www.yoctoproject.org/ - Linux based
 * https://www.freertos.org/ - for super tiny controllers
   * https://github.com/hashmismatch/freertos.rs FreeRTOS in Rust
-
+* https://nuttx.apache.org/ real-time embedded operating system (RTOS). Used in PX4 autopilot stack.
 
 ## Courses
 * https://www.autoware.org/awf-course - Self-Driving Cars with ROS and Autoware
@@ -96,6 +96,7 @@ Hopefully this will be helpful to somebody who is diving into robotics for the f
 * https://wiki.ros.org/docker/Tutorials/Compose
 * https://wiki.ros.org/docker/Tutorials/GUI
 * https://hub.docker.com/_/ros
+* https://dev.to/masoudr/create-embedded-linux-image-from-scratch-18d4 - Create embedded Linux image from scratch with Docker
 
 ## Miscelaneous
 * https://github.com/S2-group/icse-seip-2020-replication-package/blob/master/ICSE_SEIP_2020.pdf How do you architect your robot?

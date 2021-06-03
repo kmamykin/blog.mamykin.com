@@ -12,3 +12,5 @@
     Javascript - "Webify" robots, for the Robot Ops kind of tasks like fleet mgt, remote access, debugging
   * Move to the cloud - for the development, simulation, and deployment of some parts
   * More web tools - very Linux focused experience. All GUI tools at Qt
+  
+Data Stack, Data as a Product, Data Mesh
