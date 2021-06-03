@@ -158,7 +158,7 @@ All `--cmake-args` are necessary to properly build the distro on Big Sur + M1.
 
 ### Patches
 
-On the failure to build ``
+On the failure to build `osrf_testing_tools_cpp`
 
 ```
 In file included from .../ros2_galactic/src/osrf/osrf_testing_tools_cpp/osrf_testing_tools_cpp/src/memory_tools/stack_trace.cpp:17:
